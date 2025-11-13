@@ -16,28 +16,50 @@ class VeloRepository extends ServiceEntityRepository
         parent::__construct($registry, Velo::class);
     }
 
-    //    /**
-    //     * @return Velo[] Returns an array of Velo objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('v')
-    //            ->andWhere('v.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('v.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * Récupère tous les vélos
+     * @return Velo[]
+     */
+    public function findAllVelo(): array
+    {
+        return $this->findAll();
+    }
 
-    //    public function findOneBySomeField($value): ?Velo
-    //    {
-    //        return $this->createQueryBuilder('v')
-    //            ->andWhere('v.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    /**
+     * Récupère le premier vélo
+     */
+    public function findFirstVelo(): ?Velo
+    {
+        return $this->findOneBy([], ['id' => 'ASC']);
+    }
+
+    /**
+     * Récupère les vélos en promotion
+     * @return Velo[]
+     */
+    public function findVelosEnPromotion(): array
+    {
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.estEnPromotion = :promotion')
+            ->setParameter('promotion', true)
+            ->orderBy('v.dateAjout', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByType(string $type): array
+{
+    return $this->findBy(['type' => $type]);
+}
+
+public function findExpensiveVelos(float $price): array
+{
+    return $this->createQueryBuilder('v')
+        ->where('v.prix > :price')
+        ->setParameter('price', $price)
+        ->orderBy('v.prix', 'DESC')
+        ->getQuery()
+        ->getResult();
+}
+
 }
