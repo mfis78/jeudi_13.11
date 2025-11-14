@@ -24,7 +24,8 @@ class AppFixtures extends Fixture
                 'imageUrl' => 'https://example.com/vtt1.jpg',
                 'estEnPromotion' => false,
                 'prixPromotion' => null,
-                'yes' => true, // <- ajout pour le champ obligatoire
+                'yes' => true, 
+                'poids' => '14.50',  // ← AJOUT ICI// <- ajout pour le champ obligatoire
             ],
             [
                 'categorie' => 'Vélo de route',
@@ -39,8 +40,26 @@ class AppFixtures extends Fixture
                 'imageUrl' => 'https://example.com/route1.jpg',
                 'estEnPromotion' => true,
                 'prixPromotion' => 549.99,
-                'yes' => true, // <- ajout pour le champ obligatoire
+                'yes' => true, 
+                'poids' => '14.50',   // ← AJOUT ICI// <- ajout pour le champ obligatoire
             ],
+
+            [
+                'categorie' => 'VTT',
+                'taille' => 'XL',
+                'genre' => 'Homme',
+                'marque' => 'Trek',
+                'modele' => 'X-Caliber 8',
+                'prix' => '899.99',
+                'stock' => 5,
+                'couleur' => 'Noir et rouge',
+                'description' => 'Excellent VTT pour débuter en montagne',
+                'imageUrl' => 'https://example.com/vtt1.jpg',
+                'estEnPromotion' => false,
+                'prixPromotion' => null,
+                'poids' => '14.50'   // ← AJOUT ICI
+            ],
+
         ];
 
         foreach ($velos as $veloData) {
@@ -58,7 +77,9 @@ class AppFixtures extends Fixture
             $velo->setImageUrl($veloData['imageUrl']);
             $velo->setEstEnPromotion($veloData['estEnPromotion']);
             $velo->setPrixPromotion($veloData['prixPromotion']);
+            $velo->setPoids($veloData['poids']);
             $velo->setDateAjout(new \DateTime());
+
 
             // <- setter pour le champ obligatoire
             $velo->setYes($veloData['yes']);
