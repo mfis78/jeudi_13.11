@@ -54,4 +54,25 @@ final class VeloController extends AbstractController
             'velo' => $velo,
         ]);
     }
+
+    #[Route('/promotions', name: 'app_promotions')]
+    public function promotions(VeloRepository $veloRepository): Response
+    {
+        $velos = $veloRepository->findVelosEnPromotion();
+
+        return $this->render('velo/promotions.html.twig', [
+            'velos' => $velos
+        ]);
+    }
+
+    #[Route('/velo/type/{type}', name: 'app_velo_by_type')]
+    public function byType(string $type, VeloRepository $veloRepository): Response
+    {
+        $velos = $veloRepository->findByType($type);
+
+        return $this->render('velo/by_type.html.twig', [
+            'velos' => $velos,
+            'type' => $type
+        ]);
+    }
 }
